@@ -98,6 +98,7 @@ pub enum Operator {
     LTEQ,
     Or,
     And,
+    Assign,
 }
 
 impl AsRef<str> for Operator {
@@ -116,6 +117,7 @@ impl AsRef<str> for Operator {
             Operator::LTEQ => "<=",
             Operator::Or => "||",
             Operator::And => "&&",
+            Operator::Assign => "=",
         }
     }
 }
@@ -135,7 +137,7 @@ pub enum Precedence {
 impl From<Operator> for Precedence {
     fn from(op: Operator) -> Precedence {
         match op {
-            Operator::EQ | Operator::NEQ => Precedence::Equals,
+            Operator::EQ | Operator::NEQ | Operator::Assign => Precedence::Equals,
             Operator::LT | Operator::GT => Precedence::LessGrater,
             Operator::Add | Operator::Sub => Precedence::Sum,
             Operator::Div | Operator::Mul => Precedence::Product,

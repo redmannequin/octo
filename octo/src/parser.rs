@@ -79,6 +79,7 @@ impl<'a> Parser<'a> {
                 TokenType::GT => ast::Operator::GT,
                 TokenType::GTEQ => ast::Operator::GTEQ,
                 TokenType::LTEQ => ast::Operator::LTEQ,
+                TokenType::Assign => ast::Operator::Assign,
                 _ => unimplemented!(),
             };
             if precedence >= op.into() {
@@ -92,7 +93,8 @@ impl<'a> Parser<'a> {
                 | ast::Operator::EQ
                 | ast::Operator::LT
                 | ast::Operator::GT
-                | ast::Operator::NEQ => self.parse_infix(expr, op)?,
+                | ast::Operator::NEQ
+                | ast::Operator::Assign => self.parse_infix(expr, op)?,
                 _ => unimplemented!(),
             };
         }
